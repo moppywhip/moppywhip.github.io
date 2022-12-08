@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<link rel = "stylesheet" type = "text/css" href = "messages.css"/>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script type="text/javascript">
+	var socket = io();
+	var prevRoom = undefined;
+	var members_of_group = undefined;
+	function sendchat(){
+	
+		socket.emit("chat message", 
+		{text:$("#sentMessage").val(), sender: $("#groupSelect").val()}
+		);
+		
+		//let user = socket.request.session.userId;
+		//console.log(user);
+	
+	}
+
+
+    $(document).ready(function() {
+    
+    	$("#messageElts").hide()
+    	$("#messagePanel").hide()
+    	
+    
+    	socket.on("chat message", function(msg){
+    		var messageTemp = document.createElement("li");
+    		
+    		messageTemp.appendChild(document.createTextNode( msg.text));
+    		$("#messages").append(messageTemp);
+    		
+    		})
+    		
+    	
+    		
+    		
+        $.post("/messageGroups", function (data) {
+        	
+        	//alert(JSON.parse(data));
+        	data = data.id.L
+        	
+        	
+            selectContents = "";
+            for (var i = 0; i < data.length; i++) {
+                var selectId = data[i].S;
+                if(selectId==undefined){
+                selectId = data[i].N;
+                }
+                selectContents += '<option value="'+ selectId + '">' + selectId + '</option>';
+            }
+            $("#groupSelect").html(selectContents);
+        }, 'json');
+        
+         $.post("/getFriends", function (data) {
+            selectContents = "";
+            for (var i = 0; i < data.length; i++) {
+                var friendUser = data[i].S;
+                selectContents += '<option value="'+ friendUser + '">' + friendUser + '</option>';
+            }
+            $("#myFriends").html(selectContents);
+        }, 'json');
+        
+        
+        
+        $("#viewMessages").click(function(){
+        	
+        $("#messageElts").show()
+        $("#messagePanel").show()
+	        $("#addFriend").click(function(){
+	        	
+        		socket.emit("addFriend", {id:$("#groupSelect").val(), friend:$("#myFriends").val()});
+        	});
+
+        	
+        	
+			socket.emit("roomChange", {id:$("#groupSelect").val(), prevId: prevRoom})
+        	
+            prevRoom = $("#groupSelect").val();
+            $("#messages").empty();
+            
+            $.post("/currMembersOfRoom", {id:$("#groupSelect").val()}, function(data){
+           
+	            data = data.L;
+	            members_of_group = [];
+	            
+	            var optHTML = "";
+	            for(var i = 0; i<data.length; i++){
+	            	optHTML += '<option value="'+ data[i].S + '">' + data[i].S + '</option>';
+					members_of_group.push(data[i].S)            
+	            }
+	            
+	            $("#currMembers").html(optHTML);
+            
+            }, 'json');
+            
+           /* $("#removeMember").click(function(){
+            
+       	     socket.emit("removeMember", {id:$("#groupSelect").val(), member:$("#currMembers").val()});
+            
+            });*/
+            //removing member functionality isn't needed. can be added later
+            
+            $.post("/messageContents", {id:$("#groupSelect").val()}, function(data){
+                
+                for (var i = 0; i < data.length; i++) {
+                    var messageFrom = data[i].from.S;
+                    var message = data[i].message.S;
+                    var messageTemp = document.createElement("li");
+                    var actualMessage = 'From: ' + messageFrom + ' Message: ' + message; 
+                    messageTemp.appendChild(document.createTextNode(actualMessage))
+                    $("#messages").append(messageTemp);
+                       }
+                       
+               
+            }, 'json');
+            
+            
+            
+            
+            
+            
+            
+            
+        });
+        
+        
+        
+        /*
+        $("#messageSubmit").click(function(e){
+            $.post("/message_Submit", {id:$("#groupSelect").val(), message: $("#sentMessage").val()}, function(data){
+                
+            }, 'json');
+            e.preventDefault();
+        });*/
+        
+        
+        
+         
+        });
+        
+       
+    
+</script>
+<body>
+<p>Choose a message group:</p>
+<select name="groups" id="groupSelect">
+</select>
+<button type="button" id="viewMessages">View messages</button>
+<div id="messagePanel">
+<p/>
+<select id = "currMembers"></select>
+<!--<button type = "button" id = "removeMember"> leave room </button>-->
+<ul id = "messages"> </ul>
+</div>
+
+<div id = "messageElts">
+<h3></h3>
+<form>
+<input type = "text" name = "textVal" id = "sentMessage"/>
+<button type = "button" id = "messageSubmit" onclick = "return sendchat()"> send message </button>
+</form>
+
+<select name = "friendList" id = "myFriends">
+</select>
+<button type = "button" id = "addFriend">add friend to chat</button>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.85/dist/themes/light.css" />
+	<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.85/dist/shoelace.js"></script>
+	<link type="text/css" href="../css/home.css" rel="stylesheet" />
+	
+	<header style="background-color:#ffffff;padding:3px;position:fixed;top:0;width:100%;z-index:100; border-bottom: 1px var(--sl-color-neutral-100) solid; box-shadow: 0 5px 5px rgba(0,0,0,.1);">
+		<div style="display:inline-block; width:30%">
+			<div style="display:flex;justify-content:flex-start;align-items:center;">
+				<sl-button variant="text" size="large"> 
+					Pennbook
+				</sl-button>
+			</div>
+		</div>
+		<div style="display:inline-block; width:39%">
+			
+		</div>
+		<div style="display:inline-block; width:30%">
+			<div style="display:flex;justify-content:flex-end;align-items:center;">
+				<sl-button variant="default" size="medium" circle style="padding-left:10px;fill:#f0f2f5;" href="/messages">
+				  <sl-icon name="messenger" label="chat" size="large"></sl-icon>
+				</sl-button>
+
+				<sl-drawer class="drawer-overview" no-header>
+					<header>
+						<sl-card>
+							<div style="display:inline-block;">
+								<sl-avatar label="User avatar" style="--size:40px"></sl-avatar>
+							</div>
+							<div style="display:inline-block;">
+								<strong> <%=user%></strong>
+								<%=firstname%> <%=lastname%>
+							</div>
+						</sl-card>	
+					</header>
+
+					<sl-menu style="max-width: 200px;">
+						<sl-menu-item value="settings" onclick="window.location.href = '/settings';">
+							<sl-icon name="gear" label="settings" size="large"></sl-icon>
+							Settings
+						</sl-menu-item>
+						<sl-divider></sl-divider>
+						<sl-menu-item value="log out" onclick="window.location.href = '/logout';">
+							<sl-icon name="box-arrow-right" label="logout" size="large"></sl-icon>
+							Log Out
+						</sl-menu-item>
+					</sl-menu>
+				</sl-drawer>
+
+				<sl-button variant="default" size="medium" circle style="padding-left:10px;padding-right:5px;">
+					<sl-avatar label="User avatar" style="--size:40px"></sl-avatar>
+				</sl-button>
+
+				<script>
+				  const drawer = document.querySelector('.drawer-overview');
+				  const openButton = drawer.nextElementSibling;
+
+				  openButton.addEventListener('click', () => drawer.show());
+				</script>
+			</div>
+		</div>	
+	</header>
+</head>
+<body style="background-color:#f0f2f5; margin:0">
+	<script>
+		function hideCreatePost(e) {
+			if(!document.getElementById('new-post').contains(e.target)) document.getElementById('overlay').style.top = '-9999px';
+		}
+	</script>
+	<div id="overlay" onclick="hideCreatePost(event)">
+		<div style="padding-top:100px;">
+			<sl-card id="new-post" class="card-overview">
+				<div slot="header" style="vertical-align: center;">
+				    <strong>Create Post</strong>
+				    <sl-icon-button style="float:right"name="x" label="close-make-post" onclick="document.getElementById('overlay').style.top = '-9999px';"></sl-icon-button>
+				</div>
+				<div style="text-align:left">
+					<div style="padding:15px;">
+						<div style="display:inline-block;">
+							<sl-avatar label="User avatar" style="--size:40px"></sl-avatar>
+						</div>
+						<div style="display:inline-block;">
+							<strong> <%=user%></strong>
+						</div>
+					</div>
+					<div>
+						<sl-textarea id="post-content-area" name="comment" size="large" rows="7" spellcheck=true resize="none" placeholder="What's on your mind, <%=firstname%>?" style="border:none;outline:none"></sl-textarea>
+					</div>
+					<script>
+						const postcontentarea = document.getElementById('post-content-area');
+						postcontentarea.addEventListener('sl-input', event => {
+							if(postcontentarea.value === '') {
+								document.getElementById('open-make-post').innerText = "What's on your mind, <%=firstname%>?";
+								document.getElementById('post-content-button').disabled=true;
+							}
+							else {
+								document.getElementById('open-make-post').innerText = postcontentarea.value;
+								document.getElementById('post-content-button').disabled=false;
+							}
+						});
+					</script>
+				</div>
+				<div style="padding:15px; padding-bottom:0px">
+					<sl-card style="width:100%;">
+						<div style="display:flex">
+							<div>
+								Add to your post
+							</div>
+						</div>
+					</sl-card>
+				</div>
+				<div style="padding:15px">
+					<sl-button style="width:100%" id="post-content-button" variant="primary" disabled>Post</sl-button>
+				</div>
+			</sl-card>
+		</div>
+	</div>
+	<div style="padding:20px">
+		<br>
+	</div>
+	<div style="overflow:auto">
+		<div id="sidebar" style="float:left; position:fixed; padding:10px; padding-top:20px; padding-left:20px">
+			<sl-menu style="width: 170px;">
+				<sl-menu-item value="settings" onclick="window.location.href = '/home';">
+					<sl-icon name="house-fill" label="settings" size="large"></sl-icon>
+					Home
+				</sl-menu-item>
+				<sl-menu-item value="settings" onclick="window.location.href = '/';">
+					<sl-icon name="stickies" label="My Wall" size="large"></sl-icon>
+					My Wall
+				</sl-menu-item>
+				<sl-divider></sl-divider>
+				<sl-menu-item value="friends" onclick="window.location.href = '/friends';">
+					<sl-icon name="people-fill" label="logout" size="large"></sl-icon>
+					Friends
+				</sl-menu-item>
+				<sl-menu-item value="news" onclick="window.location.href = '/';">
+					<sl-icon name="newspaper" label="logout" size="large"></sl-icon>
+					News
+				</sl-menu-item>
+			</sl-menu>
+		</div>
+		<div style="float:left; width:325px">
+			<br>
+		</div>
+
+		<div id="feed" style="padding:10px; padding-top:20px; float:left">
+			<% function comment(foo){%>
+				<div style="overflow:auto;display:flex; margin-bottom:10px">
+					<div style="float:left; padding-right:10px;display:flex;flex-direction: column;">
+						<div style="vertical-align:top;">
+							<div style="vertical-align:middle;">
+								<sl-avatar label="User avatar" style="--size:30px"></sl-avatar>
+							</div>
+						</div>
+						<%if(foo.comments.length>0){%>
+							<div style="flex:1; padding-top:5px; padding-bottom:25px">
+								<sl-divider vertical></sl-divider>
+							</div>
+						<%}%>
+					</div>
+					<div style="float:left;">
+						<sl-card class="comment-overview">
+							<div>
+								<strong> <%=foo.creator%></strong>
+							</div>
+
+							<%=foo.data.text%>
+						</sl-card>
+						<div style="display:flex; max-height:20px; align-items:center;">
+							<sl-button class = "likecomm" variant="text" size="small" style="color:--sl-color-neutral">
+								Like
+							</sl-button>
+							<sl-button class = "likecomm" variant="text" size="small"  onclick="document.getElementById('<%=foo.creator%>'+'||'+'<%=foo.date%>'+'||'+'comment').style.display='flex';">
+								Reply
+							</sl-button>
+							<sl-button class = "likecomm" variant="text" size="small">
+								<sl-relative-time date='<%=foo.date%>'></sl-relative-time>
+							</sl-button>
+							
+						</div>
+						<div style="overflow:auto; transform:translateX(-15px); padding-top: 5px">
+							<div id="<%=foo.creator%>||<%=foo.date%>||comment" style="padding-bottom:10px;display:none;">
+								<div style="vertical-align:top; padding-right: 11px">
+									<div style="vertical-align:middle;">
+										<sl-avatar label="User avatar" style="--size:30px"></sl-avatar>
+									</div>
+								</div>
+								<div>
+									<sl-textarea class="comment-overview" name="comment" rows="1" spellcheck=true size=small resize="auto" placeholder="Write a public comment..."></sl-textarea>
+								</div>
+								<div>
+									<sl-icon-button type="submit" style="font-size: 1rem;" name="send-fill" label="Post"
+									onclick= ""></sl-icon-button>
+								</div>
+							</div>
+
+							<div style="float:left">
+								<% for(var x of foo.comments){
+									comment(x);
+								}%>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+			<%}%>
+
+			<div>
+				<sl-card class="card-overview">
+					<div style="padding:15px">
+						<div style="margin-bottom: 10px; display:flex">
+							<div style="display:inline-block; padding-right:7px">
+								<sl-avatar label="User avatar" style="--size:40px"></sl-avatar>
+							</div>
+							<div style="flex: 1 1 0;">
+								<sl-card class="comment-overview" style="width:100%; max-width: 521px" onclick="document.getElementById('overlay').style.top='0'">
+									<div id="open-make-post" style="width:100%; word-wrap: break-word">
+										What's on your mind, <%=firstname%>?
+									</div>
+								</sl-card>
+							</div>
+							
+						</div>
+					</div>
+				</sl-card>
+			</div>
+
+			<br>
+
+			<% for(var item of feed) {%>
+
+				<sl-card class="card-overview">
+				  	<div style="padding:15px">
+						<div style="margin-bottom: 10px;">
+							<div style="display:inline-block;">
+								<sl-avatar label="User avatar" style="--size:40px"></sl-avatar>
+							</div>
+							<div style="display:inline-block;">
+								<strong> <%=item.creator%></strong>
+								<small>
+									<sl-relative-time date='<%=item.date%>'></sl-relative-time>
+								</small>
+							</div>
+						</div>
+
+						<%=item.data.text%>
+					</div>
+
+					<%if(item.data.image !== 'none') {%>
+						<img class="card-image"
+						    src= "<%=item.data.image%>"
+						    alt="Image not found"
+						 />
+					<%}%>
+					
+
+					<div slot="footer">
+						<div style="width:100%">
+
+							<div style="display:flex; align-items: center; max-height:30px; padding-top: 5px">
+								<div style="display:flex; align-items: center; text-align:bottom">
+									<sl-button variant="default" size="small" circle>
+										<sl-icon name="hand-thumbs-up" label="Likes"></sl-icon>
+									</sl-button>
+									<p style="text-align:bottom"> <%=item.likes%> </p>
+								</div>
+								<div style="margin-left: auto; order: 2; align-items: center; text-align:bottom">
+									<%=item.comments.length%> comments
+								</div>
+							</div>
+
+							<sl-divider style="padding:0; margin:5px;"></sl-divider>
+							
+							<div style="max-height:30px; align-items:center">
+								<div style="display:inline-block;width:30%;text-align:center;">
+									<sl-button class = "likecomm" variant="text">
+										<sl-icon slot="prefix" name="hand-thumbs-up"></sl-icon>
+									 	Like
+									</sl-button>
+								</div>
+								<div style="display:inline-block;width:30%;text-align:center">
+									<sl-button class = "likecomm" variant="text" 
+									onclick="document.getElementById('<%=item.creator%>'+'||'+'<%=item.date%>'+'||'+'comment').style.display='flex';">
+										<sl-icon slot="prefix" name="chat-left"></sl-icon>
+									 	Comment
+									</sl-button>
+								</div>
+								<div style="display:inline-block;width:30%;text-align:center">
+									<sl-button class = "likecomm" variant="text" >
+										<sl-icon slot="prefix" name="eye-slash"></sl-icon>
+									 	Hide
+									</sl-button>
+								</div>
+							</div>
+
+							<sl-divider style="padding:0;margin:10px;"></sl-divider>
+
+							<div id="<%=item.creator%>||<%=item.date%>||comment" style="display:none; margin-bottom:10px">
+								<div style="float:left; padding-right:10px;display:flex;">
+									<div style="vertical-align:top; padding-right: 11px">
+										<div style="vertical-align:middle;">
+											<sl-avatar label="User avatar" style="--size:30px"></sl-avatar>
+										</div>
+									</div>
+									<div>
+										<sl-textarea class="comment-overview" rows="1" spellcheck=true size=small resize="auto" placeholder="Write a public comment..."></sl-textarea>
+									</div>
+									<div>
+										<sl-icon-button style="font-size: 1rem;" name="send-fill" label="Post"></sl-icon-button>
+									</div>
+								</div>
+							</div>
+
+							<% for(var x of item.comments){
+								comment(x);
+							}%>
+						</div>
+					</div>
+				</sl-card>
+				<br></br>
+			<%} %>
+		</div>
+	</div>
+
+</body>
+</html>

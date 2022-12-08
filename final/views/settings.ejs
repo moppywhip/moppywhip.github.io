@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+Settings for <%=username%>
+<form action="/settings-update" method="post">
+    <div>
+    Change Password
+    Old password:
+    <input type="text" name="oldpassword">
+    New password:
+    <input type="text" name="newpassword">
+    </div>
+    
+    <div>
+    Name
+    First name:
+    <input type="text" name="firstname" value=<%=firstname%>>
+    Last name:
+    <input type="text" name="lastname" value=<%=lastname%>>
+    </div>
+    
+    <div>
+    Affiliation:
+    <input type="text" name="affiliation" value=<%=affiliation%>>
+    </div>
+    
+    <div>
+    Email:
+    <input type="text" name="email" value=<%=email%>>
+    </div>
+    
+    <div>
+    Birthday:
+    <input type="text" name="birthday" value=<%=birthday%>>
+    </div>
+    
+    <div id="interests">
+    Interests:
+    <ul>
+    <%for(var item of interests) {%>
+    	<li><%=item.S%></li>
+    <%}%>
+    </ul>
+    </div>
+    
+    <input type="submit" value="submit changes">
+  </form>
+</body>
+</html>
