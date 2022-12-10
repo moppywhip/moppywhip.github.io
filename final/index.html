@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <style>
+        *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+           
+        }
+#greenhover {
+  transition-duration: 0.4s;
+  
+  /* Green */
+  border: none;
+  color: green;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  
+
+}
+
+#greenhover:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+#redhover {
+  transition-duration: 0.4s;
+  
+  /* Green */
+  border: none;
+  color: orangered;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  
+
+}
+
+#creamhover{
+    position:absolute;
+    bottom:0;
+    transition-duration: 0.4s;
+  
+    /* Green */
+    border: none;
+    background-color: wheat;
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+#creamhover:hover {
+  background-color: wheat; /* Green */
+  color: wheat;
+}
+textarea {
+   display:block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 800px;
+    width:1000px;
+    border: 0px;
+    background-color: wheat;
+    vertical-align: middle;
+
+    
+}
+#story span {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+    color:wheat;
+}
+
+
+#redhover:hover {
+  background-color: orangered; /* Green */
+  color: white;
+}
+
+.A span{
+    font-size:35px;
+    
+}
+    </style>
+   
+   
+        
+    <script>
+        $(document).ready(function(){
+            $("#inp").hide();
+            $("#part1").hide();
+            $("#part2").hide();
+            $("#part3").hide();
+            $("#part4").hide();
+            $("#part5").hide();
+            $("#part6").hide();
+
+        })
+        
+       
+    function fadeOutEffect() {
+       var fadeTarget = document.getElementById("toDie");
+        //const fadeTarget = document.getElementsByClassName("toDie");
+        document.body.style.transition = "background 2s";
+document.body.style.background = "#000000";
+        
+        /*var fadeEffect = setInterval(function () {
+            if (!fadeTarget.style.opacity) {
+                fadeTarget.style.opacity = 1;
+            }
+            if (fadeTarget.style.opacity > 0) {
+                fadeTarget.style.opacity -= 0.1;
+            } else {
+                clearInterval(fadeEffect);
+            }
+        }, 200);*/
+
+    }
+
+    function fadeInEffect(){
+        var fadeTarget = document.getElementById("toDie");
+        //const fadeTarget = document.getElementsByClassName("toDie");
+        document.body.style.transition = "background 2s";
+document.body.style.background = "#FFFFFF";
+        
+      /*  var fadeEffect = setInterval(function () {
+            
+            if (fadeTarget.style.opacity < 1) {
+                fadeTarget.style.opacity += 0.1;
+            } else {
+                clearInterval(fadeEffect);
+            }
+        }, 200);*/
+
+    }
+
+    function reset_stage(){
+        fadeInEffect();
+        $("#toDie").fadeIn(1000);
+        $("#inp").hide();
+            $("#part1").hide();
+            $("#part2").hide();
+            $("#part3").hide();
+            $("#part4").hide();
+            $("#part5").hide();
+            $("#part6").hide();
+        
+    }
+    
+    function tellStory(){ 
+        //$("#part1").fadeIn(1000);
+       
+        
+       
+        
+        var i = 0;
+        $("#toDie").fadeOut(1000);
+        i+=3000;
+        $("#part1").delay(i).fadeIn(1000);
+        i+=3000;
+        $("#part2").delay(i).fadeIn(1000);
+        i+=3000;
+        $("#part3").delay(i).fadeIn(1000);
+        i+=3000;
+        $("#part4").delay(i).fadeIn(1000);
+        i+=3000;
+        $("#part5").delay(i).fadeIn(1000);
+        i+=3000;
+        $("#part6").delay(i).fadeIn(1000);
+
+        fadeOutEffect();
+        
+        
+        
+
+    }
+    function toldStory(){
+        //$("#story").show();
+        $("#toDie").fadeOut(1000);
+        $("#inp").delay(2000).fadeIn(1000);
+        $("#part6").delay(2000).fadeIn(1000);
+        
+        fadeOutEffect();
+    }
+    </script>
+<body>
+    <div id = "toDie">
+    <marquee behavior="alternate" class = "A" scrollamount = 4> <p class = "Abbb">
+        <span>Hello! Welcome to my site</span></p></marquee>
+    <marquee behavior="alternate" class = "B" scrollamount = 5> <p class = "B"><span>Feel free to stay as long as you'd like... or don't :(</span></p> </marquee>
+    <marquee behavior="alternate" class = "A" scrollamount = 4> <p class = "A"><span>What would you like to do today?</span></p></marquee>
+    <marquee behavior="alternate" class = "B" scrollamount = 5> <p class = "B">
+    <button class = "button" id = "greenhover" onclick = "return tellStory()">tell me a story</button> <button id = "redhover" onclick=" return toldStory()">I'll tell you a story</button></p></marquee>
+    </div>
+
+    
+    
+    <div id = "story">
+        <div id = "part1">
+           <span>There once was a rabbit</span> 
+        </div>
+        <div id = "part2">
+            <span>He had severe writer's block</span> 
+         </div>
+         <div id = "part3">
+            <span>The writer mafia came and taught the rabbit a lesson</span> 
+         </div>
+         <div id = "part4">
+            <span>The rabbit has found new inspiration</span> 
+         </div>
+         <div id = "part5">
+            <span>Fin</span> 
+         </div>
+
+    </div>
+    <div id = "tell">
+        <textarea id="inp" name="story"
+          rows="5" cols="33">
+It was a dark and stormy night...
+</textarea>
+    </div>
+    
+<div id = "part6"><button class = "button" id = "creamhover" onclick = "return reset_stage()">take me back</button>
+</div>
+    
+
+</body>
+</html>
