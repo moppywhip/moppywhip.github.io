@@ -1,6 +1,158 @@
-<!DOCTYPE html>
 <html>
-    <body>
-        Homework 1
-    </body>
+
+<head>
+  <meta charset="utf-8" />
+  <title>WDD Homework 9</title>
+  <link rel="stylesheet" type="text/css" href="assets/styles/styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <div id="header-caption">
+        <div id="header-caption-logo">
+          <img class="img-scaled" src="assets/images/logo.png" />
+        </div>
+        <div id="header-caption-name">Web Design DeCal</div>
+        <div class="clear"></div>
+      </div>
+      <div id="header-content">
+        <!-- ASSIGNMENT NAME -->
+        <div id="header-title">Homework 9</div>
+        <!-- DUE DATE -->
+        <div id="header-due">November 17th</div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="info">
+        <!-- ASSIGNMENT TITLE -->
+        <div class="info-title">Javascript Homework</div>
+        <div class="info-content">
+          <!-- REQUIRED TOOLS -->
+          <div class="info-required">
+            Required Tools: Text Editor and Google Chrome Web Inspector
+          </div>
+          <!-- INTRODUCTION -->
+          <div class="info-intro">
+            We learned about variables and types in Javascript, and how we can
+            use them to store values. Let's put that to use today! That being
+            said, a lot of students find the JavaScript portion of WDD harder
+            to grasp, so don't be hesitant to go to office hours if you need
+            help!
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="body-header">Assignment</div>
+        <!-- CONTENT -->
+
+        <!-- Styled Tags; P, UL, LI, .caption, A, IMG-->
+        <!-- Add P Tags for each paragraph -->
+        <!-- Use UL LI Tags for each lists -->
+        <!-- Use P Tags with "caption" class for paragraph captions (60% opacity) -->
+        <!-- Use IMG Tags for images -->
+        <p class="caption">You can download the assignment file here:</p>
+        <a href="hw9-starter.zip">
+          <div class="download">Download Assignment</div>
+        </a>
+        <p class="caption">
+          You do not need to make any changes to HTML/CSS document for these
+          questions. All of your changes should only be in the JavaScript
+          files.
+        </p>
+
+        <p class="body-header">Question 1: Color Buttons</p>
+
+        <p>
+          Add code so that the background matches the color of the last
+          clicked button. It should work like the video below.
+        </p>
+
+        <video width="660" controls muted>
+          <source src="assets/videos/q1.mov" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <p>
+          Recall we discussed the use of
+          <code>element.onclick = someHandlerFunction</code> to let the
+          browser run <code>someHandlerFunction</code> for us when the user
+          clicks on the element. Note that the function, for an element, runs
+          only once after the user finishes clicking.
+        </p>
+
+        <p>
+          Also remember you can make use of
+          <code>element.style.someCSSPropertyName = someCSSPropertyValue</code>
+          to dynamically set an element's inline styles. For those CSS
+          property names that include hyphens, for example
+          <code>background-color</code>, you can specify them in camelCase in
+          JavaScript with
+          <code>element.style.backgroundColor = "green"</code>.
+        </p>
+
+        <p>
+          Please look in <code>assets/scripts/q1.js</code> for more hints.
+        </p>
+
+        <p class="body-header">Question 2: Finsta Revisited – Lightboxes!</p>
+
+        <p>
+          For this question, we will be adding a pop-up image functionality.
+          The page is already populated with 3 pictures, but feel free to
+          change them to your own pictures. The final page should be like so:
+        </p>
+
+        <img src="assets/images/q2.gif" alt="" />
+
+        <p>
+          This functionality involves showing the pop-up lightbox when you
+          click on a picture, and hiding the pop-up when clicking outside the
+          pop-up.
+        </p>
+
+        <p>
+          In code, this boils down to adding or removing a CSS class when we
+          click on certain elements.
+        </p>
+
+        <p>
+          We'll use the <code>element.classList.add('class-name')</code> and
+          <code>element.classList.remove('class-name')</code> functions to do
+          this.
+        </p>
+
+        <p>
+          Similar to the previous question, we make use of the code that looks
+          like <code>element.onclick = functionToRun</code>.
+        </p>
+
+        <p>
+          Please look in <code>assets/scripts/q2.js</code> for more hints, or
+          refer to Week 10 programming slides for help!
+        </p>
+      </div>
+    </div>
+    <div id="submission">
+      <div id="submission-header">Submission</div>
+      <div id="submission-content">
+          <p>Submit your files to your GitHub Submission Repository by copying all the files from
+              hw9-starter into
+              the hw9 folder of your submission repository (replace the index.html originally in it).
+              In your terminal, from your GitHub Submission Repository, run the following Git commands:
+          </p>
+          <ul>
+              <li>git add -A</li>
+              <li>git commit -m 'finished hw9'</li>
+              <li>git push</li>
+          </ul>
+          <p>This assignment is due <strong>Thursday, November 17th</strong> at <strong>8:00PM
+                  PST</strong>.</p>
+      </div>
+  </div>
+  </div>
+</body>
+
 </html>
