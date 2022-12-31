@@ -1,1 +1,1 @@
-Hi there. This is a full stack project I've been working on that's a clone of facebook, called pennbook. unfortunately, since data is persisted through aws dynamodb databases, you will not be able to access the full functionality of the site, since it uses expres session for logins. I have attached a video of the site working on my end to show that the website does indeed contain the features I mentioned. Sorry about that!
+Coursework from CS198 - Web Development
